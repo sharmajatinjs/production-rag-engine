@@ -1,7 +1,11 @@
+import sys
+import os
 import streamlit as st
-import requests
+import time
 
-API_URL = "http://127.0.0.1:8000/query"
+# Add root directory to path so we can import from src directly
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from generation.prompts import answer_query_with_context
 
 st.set_page_config(page_title="Hybrid RAG Intelligence", layout="wide")
 st.title("Production Hybrid RAG Engine")
@@ -31,23 +35,18 @@ question = st.text_input(
 if st.button("Run Query", type="primary") and question.strip():
     with st.spinner(f"Running {mode.upper()} pipeline..."):
         try:
-            res = requests.post(
-                API_URL,
-                json={"question": question, "mode": mode, "top_k": top_k},
-                timeout=60
-            )
-            if res.status_code == 200:
-                data = res.json()
-                st.subheader("Answer")
-                st.write(data["answer"])
-                st.info(f"Pipeline Mode: **{data['mode'].upper()}** | Latency: **{data['latency_ms']} ms**")
-                
-                st.subheader("Retrieved Context Chunks")
-                for idx, src in enumerate(data["sources"]):
-                    score_label = f"Rerank Score: {src.get('rerank_score', src['score']):.4f}"
-                    with st.expander(f"Chunk {idx+1}: {src['source']} (Page/Section {src['page']}) — {score_label}"):
-                        st.write(src["text"])
-            else:
-                st.error(f"API Error: {res.text}")
+            start_time = time.time()
+            result = answer_query_with_context(question, mode=mode, top_k=top_k)
+            latency = round((time.time() - start_time) * 1000, 2)
+            
+            st.subheader("Answer")
+            st.write(result["answer"])
+            st.info(f"Pipeline Mode: **{mode.upper()}** | Latency: **{latency} ms**")
+            
+            st.subheader("Retrieved Context Chunks")
+            for idx, src in enumerate(result["sources"]):
+                score_label = f"Rerank Score: {src.get('rerank_score', src['score']):.4f}"
+                with st.expander(f"Chunk {idx+1}: {src['source']} (Page/Section {src['page']}) — {score_label}"):
+                    st.write(src["text"])
         except Exception as e:
-            st.error(f"Could not connect to FastAPI backend. Make sure uvicorn is running! ({e})")
+            st.error(f"Error executing query: {e}")
