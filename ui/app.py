@@ -3,8 +3,8 @@ import os
 import streamlit as st
 import time
 
-# Add root directory to path so we can import from src directly
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Add src directory to python path directly
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 from generation.prompts import answer_query_with_context
 
 st.set_page_config(page_title="Hybrid RAG Intelligence", layout="wide")
