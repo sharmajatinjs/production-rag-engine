@@ -1,0 +1,130 @@
+[
+  {
+    "id": "q1",
+    "type": "factual",
+    "question": "How much faster are DDIMs at producing samples in terms of wall-clock time compared to DDPMs according to the abstract?",
+    "expected_answer": "DDIMs can produce high quality samples 10x to 50x faster in terms of wall-clock time compared to DDPMs.",
+    "expected_source": "AnirudhResearchPaper1.pdf",
+    "expected_page": 1
+  },
+  {
+    "id": "q2",
+    "type": "multi_chunk",
+    "question": "On an Nvidia 2080 Ti GPU, how long does it take to sample 50k images of size 32x32 and 256x256 from a DDPM compared to a GAN?",
+    "expected_answer": "It takes around 20 hours to sample 50k images of size 32x32 from a DDPM (versus less than a minute from a GAN) and nearly 1000 hours for 50k images of size 256x256 on an Nvidia 2080 Ti GPU.",
+    "expected_source": "AnirudhResearchPaper1.pdf",
+    "expected_page": 1
+  },
+  {
+    "id": "q3",
+    "type": "factual",
+    "question": "In Equation 16, what values of the hyperparameter eta correspond to an original DDPM generative process versus a deterministic DDIM?",
+    "expected_answer": "eta = 1 corresponds to an original DDPM generative process, and eta = 0 corresponds to a deterministic DDIM.",
+    "expected_source": "AnirudhResearchPaper1.pdf",
+    "expected_page": 7
+  },
+  {
+    "id": "q4",
+    "type": "factual",
+    "question": "According to Table 1, what is the FID score on CIFAR10 (32x32) for DDIM (eta = 0.0) when S = 10 steps versus DDPM (eta = 1.0) at S = 10 steps?",
+    "expected_answer": "For CIFAR10 at S = 10 steps, DDIM (eta = 0.0) achieves an FID of 13.36, whereas DDPM (eta = 1.0) achieves an FID of 41.07.",
+    "expected_source": "AnirudhResearchPaper1.pdf",
+    "expected_page": 8
+  },
+  {
+    "id": "q5",
+    "type": "factual",
+    "question": "In Table 2, what is the reconstruction error with DDIM on the CIFAR-10 test set for S = 10 steps and S = 1000 steps?",
+    "expected_answer": "The reconstruction error on CIFAR-10 is 0.014 for S = 10 steps and 0.0001 for S = 1000 steps.",
+    "expected_source": "AnirudhResearchPaper1.pdf",
+    "expected_page": 10
+  },
+  {
+    "id": "q6",
+    "type": "multi_chunk",
+    "question": "Which four image datasets and resolutions are evaluated in Appendix D.1, and which reverse process sub-sequence selection (linear vs quadratic) was used for each?",
+    "expected_answer": "The four datasets are CIFAR10 (32x32), CelebA (64x64), LSUN Bedroom (256x256), and LSUN Church (256x256). Quadratic selection was used for CIFAR10, and linear selection was used for the remaining datasets.",
+    "expected_source": "AnirudhResearchPaper1.pdf",
+    "expected_page": 20
+  },
+  {
+    "id": "q7",
+    "type": "factual",
+    "question": "What is the difference between Explicit Knowledge and Implicit/Tacit Knowledge in the AI notes?",
+    "expected_answer": "Explicit knowledge ('Hardcoded' code) is clearly written down, structured, and easy to pass on like formulas and manuals, while Implicit/Tacit knowledge ('Neural Network' intuition) is hard to put into words and is learned experientially through practice and trial-and-error.",
+    "expected_source": "Machine Learning , 100x dev.excalidraw",
+    "expected_page": 2
+  },
+  {
+    "id": "q8",
+    "type": "factual",
+    "question": "Why are non-linear activation functions critical in neural networks, and what happens if you stack 100 linear layers without them?",
+    "expected_answer": "Without non-linear activation functions, stacking multiple linear layers collapses mathematically into a single linear function, making 100 layers equivalent to one. Activation functions add bends to learn complex functions (Universal Approximation).",
+    "expected_source": "Machine Learning , 100x dev.excalidraw",
+    "expected_page": 4
+  },
+  {
+    "id": "q9",
+    "type": "factual",
+    "question": "What are the four main steps of the Training Loop, and how does Backpropagation assign blame to weights?",
+    "expected_answer": "The four steps are Forward Pass, Calculate Loss, Backpropagate, and Update Weights. Backpropagation uses the Chain of Responsibility and the derivative of Loss with respect to each weight (dLoss/dw) to trace error signals backward from output to input and adjust weights proportionally.",
+    "expected_source": "Machine Learning , 100x dev.excalidraw",
+    "expected_page": 4
+  },
+  {
+    "id": "q10",
+    "type": "factual",
+    "question": "How does Byte Pair Encoding (BPE) work in modern tokenization, and why do LLMs struggle to count letters or reverse words?",
+    "expected_answer": "BPE iteratively merges frequent character pairs into subwords until reaching a target vocabulary size (30k-100k). Models struggle to count letters or reverse words because they see subword token units rather than individual characters.",
+    "expected_source": "Machine Learning , 100x dev.excalidraw",
+    "expected_page": 5
+  },
+  {
+    "id": "q11",
+    "type": "hinglish",
+    "question": "Positional encoding formula mein 10,000 ka constant kyun hota hai aur agar K aur V change nahi hote toh lambe prompt se pehla token slow kyun hota hai?",
+    "expected_answer": "10,000 waves ki wavelength/frequency control karta hai taaki lambi sequences mein har position ko unique fingerprint mile aur waves jaldi repeat na hon. Lambe prompt mein pehla token isliye slow hota hai kyunki KV Cache khali hota hai aur model ko har token ke Q, K, V compute karke cache prefill karna padta hai.",
+    "expected_source": "Machine Learning , 100x dev.excalidraw",
+    "expected_page": 7
+  },
+  {
+    "id": "q12",
+    "type": "hinglish",
+    "question": "Kya hum Transformer mein 512 Attention Heads rakh sakte hain? Iska nuksan kya hai?",
+    "expected_answer": "Nahi, kyunki d_model dimension (jaise 768) sabhi heads mein barabar bat-ta hai. 512 heads rakhne par har head ke paas sirf 1.5 dimensions (768 / 512) bachenge (Information Thinning), jisse koi bhi head गहराई se concept store nahi kar payega. Isliye 8 se 32 heads ka balance best hota hai.",
+    "expected_source": "Machine Learning , 100x dev.excalidraw",
+    "expected_page": 7
+  },
+  {
+    "id": "q13",
+    "type": "multi_chunk",
+    "question": "What are the four modern Transformer upgrades over the 2017 architecture (Normalization, Feed-Forward, Position, Attention), and how does the Clock Analogy explain RoPE?",
+    "expected_answer": "The four upgrades are RMSNorm & Pre-Norm, SwiGLU, Rotary Positional Embeddings (RoPE), and Grouped-Query Attention (GQA). In the Clock Analogy for RoPE, just as the angle between 3 and 5 is the same as between 7 and 9, RoPE rotates query and key vectors so their dot product depends only on relative distance (angle).",
+    "expected_source": "Machine Learning , 100x dev.excalidraw",
+    "expected_page": 8
+  },
+  {
+    "id": "q14",
+    "type": "unanswerable",
+    "question": "What is the exact learning rate, batch size, and AdamW weight decay used to train Llama-3 70B in these documents?",
+    "expected_answer": "I don't know based on the provided documents.",
+    "expected_source": null,
+    "expected_page": null
+  },
+  {
+    "id": "q15",
+    "type": "unanswerable",
+    "question": "Which Indian government scheme provides ₹6,000 per year to farmers under PM-KISAN according to the provided files?",
+    "expected_answer": "I don't know based on the provided documents.",
+    "expected_source": null,
+    "expected_page": null
+  },
+  {
+    "id": "q16",
+    "type": "unanswerable",
+    "question": "What were the top-1 accuracy results of DDIM on the ImageNet 1000-class classification benchmark?",
+    "expected_answer": "I don't know based on the provided documents.",
+    "expected_source": null,
+    "expected_page": null
+  }
+]
